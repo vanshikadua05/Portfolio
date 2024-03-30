@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Square Layout</title>
+    <style>
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function createSquareLayout(rows, columns) {
+            var container = document.createElement('div');
+            container.id = 'container';
+            document.body.appendChild(container);
+
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < columns; j++) {
+                    var cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.style.backgroundColor = (i + j) % 2 === 0 ? 'black' : 'red';
+                    container.appendChild(cell);
+                }
+                container.appendChild(document.createElement('br'));
+            }
+        }
+
+        var rows = parseInt(prompt("Enter the number of rows:"));
+        var columns = parseInt(prompt("Enter the number of columns:"));
+
+        createSquareLayout(rows, columns);
+    </script>
+</body>
+</html>

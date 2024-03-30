@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>User Registration</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName">
+        </div>
+        <div class="form-group">
+            <label for="userID">User ID (Banasthali ID):</label>
+            <input type="text" id="userID" name="userID">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" minlength="8" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email ID:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="contactNumber">Contact Number:</label>
+            <input type="tel" id="contactNumber" name="contactNumber" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required>
+        </div>
+        <button type="submit" class="btn">Register</button>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var firstName = document.getElementById('firstName').value.trim();
+        var lastName = document.getElementById('lastName').value.trim();
+        var password = document.getElementById('password').value.trim();
+        var confirmPassword = document.getElementById('confirmPassword').value.trim();
+        var address = document.getElementById('address').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var contactNumber = document.getElementById('contactNumber').value.trim();
+
+        var isValid = true;
+
+        // Reset error styles
+        var formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach(function(formGroup) {
+            formGroup.classList.remove('error');
+        });
+
+        // Validate first name
+        if (firstName === '') {
+            showError('firstName', 'First name is required.');
+            isValid = false;
+        }
+
+        // Validate password
+        if (password.length < 8) {
+            showError('password', 'Password must be at least 8 characters long.');
+            isValid = false;
+        }
+
+        // Validate confirm password
+        if (confirmPassword !== password) {
+            showError('confirmPassword', 'Passwords do not match.');
+            isValid = false;
+        }
+
+        // Validate email
+        if (!/^[\w.-]+@banasthali\.in$/.test(email)) {
+            showError('email', 'Please enter a valid Banasthali email ID.');
+            isValid = false;
+        }
+
+        // Validate contact number
+        if (!/^\d{10}$/.test(contactNumber)) {
+            showError('contactNumber', 'Please enter a valid 10-digit phone number.');
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function showError(fieldId, errorMessage) {
+        var formGroup = document.getElementById(fieldId).closest('.form-group');
+        formGroup.classList.add('error');
+        var errorContainer = formGroup.querySelector('.error-message');
+        errorContainer.textContent = errorMessage;
+    }
+</script>
+
+</body>
+</html>

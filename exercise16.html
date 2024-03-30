@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <label for="temperature">Enter temperature:</label>
+    <input type="number" id="temperature" name="temperature">
+    <select id="unit">
+        <option value="kelvin">Kelvin</option>
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+    </select>
+    <button onclick="convertTemperature()">Convert</button>
+    <p id="result"></p>
+
+    <script>
+        function convertTemperature() {
+            var temperature = parseFloat(document.getElementById('temperature').value);
+            var unit = document.getElementById('unit').value;
+            var resultElement = document.getElementById('result');
+            var result;
+
+            switch (unit) {
+                case 'kelvin':
+                    result = {
+                        celsius: temperature - 273.15,
+                        fahrenheit: (temperature - 273.15) * 9/5 + 32
+                    };
+                    break;
+                case 'celsius':
+                    result = {
+                        kelvin: temperature + 273.15,
+                        fahrenheit: temperature * 9/5 + 32
+                    };
+                    break;
+                case 'fahrenheit':
+                    result = {
+                        kelvin: (temperature - 32) * 5/9 + 273.15,
+                        celsius: (temperature - 32) * 5/9
+                    };
+                    break;
+                default:
+                    result = null;
+            }
+
+            if (result) {
+                resultElement.textContent = 'Kelvin: ' + (result.kelvin ? result.kelvin.toFixed(2) : '') +
+                                            ', Celsius: ' + (result.celsius ? result.celsius.toFixed(2) : '') +
+                                            ', Fahrenheit: ' + (result.fahrenheit ? result.fahrenheit.toFixed(2) : '');
+            } else {
+                resultElement.textContent = 'Invalid unit';
+            }
+        }
+    </script>
+</body>
+</html>
